@@ -9,7 +9,7 @@ import time
 
 BATCH_SIZE = 10
 
-game_sim_cmd = ["java", "--add-opens", "java.base/java.lang=ALL-UNNAMED", "-Dnotimeout=\"true\"", "-jar", "ea-2022-keep-off-the-grass-1.0-SNAPSHOT.jar", "\"python", "Boss-hard.pyc\"", "local"]
+game_sim_cmd = ["java", "--add-opens", "java.base/java.lang=ALL-UNNAMED", "-Dnotimeout=\"true\"", "-jar", "ea-2022-keep-off-the-grass-1.0-SNAPSHOT.jar", "\"python", "Boss-easy.pyc\"", "local"]
 
 def help():
     print("Usage: trainer.py (-s <num_simulations> | -t <time_of_training>) -f <file_suffix> -i <ai_python_script> [-d]")
@@ -76,15 +76,15 @@ def train(debug, ai_script, num_simulations, num_seconds, file_suffix):
                 
                 # Train the batch
                 print("\tTesting/playing... \t\tDone!")
-                #print("\tTraining...", end='\r')
-                #start_training_time = time.time()
-                #simulation_output = subprocess.run(training_command, text=True)
-                #if simulation_output.returncode != 0:
-                #    print("")
-                #    print("Something errored during training!")
-                #    print(simulation_output.stderr)
-                #    sys.exit(1)
-                #print("\tTraining... \t\t\tDone!")
+                print("\tTraining...", end='\r')
+                start_training_time = time.time()
+                simulation_output = subprocess.run(training_command, text=True)
+                if simulation_output.returncode != 0:
+                    print("")
+                    print("Something errored during training!")
+                    print(simulation_output.stderr)
+                    sys.exit(1)
+                print("\tTraining... \t\t\tDone!")
                 
                 # Print out info
                 print("\n\tStats for simulations " + str(i - (BATCH_SIZE - 1)) + "-" + str(i))
@@ -92,7 +92,7 @@ def train(debug, ai_script, num_simulations, num_seconds, file_suffix):
                 print("\tLatest learning rate scalar: \t" + str(r))
                 print("\tBatch avg score: \t\t" + str(batch_avg_reward))
                 print("\tElapsed time: \t\t\t" + str(datetime.timedelta(seconds=time.time() - start_seconds)))
-                print("\tEstimated time remaining: \t" + str(datetime.timedelta(seconds=(avg_time * (_num_simulations - (i + 1)))))) # + (time.time() - start_training_time)))))
+                print("\tEstimated time remaining: \t" + str(datetime.timedelta(seconds=(_num_simulations - (i + 1)) * (avg_time + time.time() - start_training_time))))
                 print("\t--------------------------------------------")
                 print("\t")
                 if i <= _num_simulations - BATCH_SIZE:
@@ -138,14 +138,14 @@ def train(debug, ai_script, num_simulations, num_seconds, file_suffix):
                 
                 # Train the batch
                 print("\tTesting/playing... \t\tDone!")
-                #print("\tTraining...", end='\r')
-                #simulation_output = subprocess.run(training_command, text=True)
-                #if simulation_output.returncode != 0:
-                #    print("")
-                #    print("Something errored during training!")
-                #    print(simulation_output.stderr)
-                #    sys.exit(1)
-                #print("\tTraining... \t\t\tDone!")
+                print("\tTraining...", end='\r')
+                simulation_output = subprocess.run(training_command, text=True)
+                if simulation_output.returncode != 0:
+                    print("")
+                    print("Something errored during training!")
+                    print(simulation_output.stderr)
+                    sys.exit(1)
+                print("\tTraining... \t\t\tDone!")
 
                 # Print out info
                 print("\n\tStats for simulations " + str(n - (BATCH_SIZE - 1)) + "-" + str(n))
