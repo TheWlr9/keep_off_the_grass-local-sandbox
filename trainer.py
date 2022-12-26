@@ -9,7 +9,7 @@ import time
 
 BATCH_SIZE = 10
 
-game_sim_cmd = ["java", "--add-opens", "java.base/java.lang=ALL-UNNAMED", "-Dnotimeout=\"true\"", "-jar", "ea-2022-keep-off-the-grass-1.0-SNAPSHOT.jar", "\"python", "Boss-hard.pyc\"", "local"]
+game_sim_cmd = ["java", "--add-opens", "java.base/java.lang=ALL-UNNAMED", "-Dnotimeout=\"true\"", "-jar", "ea-2022-keep-off-the-grass-1.0-SNAPSHOT.jar", "\"python", "Boss-easy.pyc\"", "local"]
 
 def help():
     print("Usage: trainer.py (-s <num_simulations> | -t <time_of_training>) -f <file_suffix> -i <ai_python_script> [-d]")
